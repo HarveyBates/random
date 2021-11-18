@@ -1,0 +1,40 @@
+#set terminal pngcairo
+#set output "output.png"
+
+set multiplot
+set size 1, 0.5
+set key left top
+
+set xtics nomirror
+set ytics nomirror
+set grid
+
+set yrange [0:100]
+
+set rmargin 10
+
+set origin 0.0,0.5
+set style line 1 lt 1 lw 2 pt 6 ps 1.5 lc "#173d4f" 
+plot 'data.csv' using 1:2 with linespoints linestyle 1 title 'Series 1'
+
+set origin 0.0,0.0
+
+# Linear regression
+f(x) = m * x + b
+fit f(x) 'data.csv' using 1:2 every ::4::8 via m, b
+
+# Get R^2
+stats [4:8] 'data.csv' using 1:2 name "Correlation"
+
+mq_value = sprintf("m = %f q = %f", m, b)
+set object 1 rect from 7.5,15 to 9.5, 5 fc rgb 'white'
+set label 1 at 8,10 mq_value
+
+set style line 1 lt 1 lw 2 pt 7 ps 1.5 lc "#d12c1f" 
+plot 'data.csv' using 1:2 with linespoints linestyle 1 title 'Series 2', [4:8] f(x) ls 8 lw 2 dt (2,5) t 'LR'
+
+
+unset multiplot
+
+pause 2
+
