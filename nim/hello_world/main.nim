@@ -1,3 +1,6 @@
+# import statement
+import httpclient
+import std/net
 
 #[ Print hello world to stdout ]#
 echo "\nHello World"
@@ -38,7 +41,9 @@ echo getResult()
 
 
 # Type casting
-var x = 5.0 # float
+var x = 5.0 # float inferred
+#var x: float = 5.0 # float asserted
+
 var y = "foo" # string
 # x = y compile time error
 
@@ -57,3 +62,22 @@ case p:
     echo "p = 1"
   else:
     echo "Lets hope not"
+
+# Delare and loop through array items
+let names: array[3, string] = ["sally", "steve", "sunny"]
+
+# Funciton with no return values
+proc printNames(names: array[3, string]) = 
+  for name in names:
+    echo name
+
+printNames(names)
+
+
+# Simple get request with auth
+# compile with nim c -d:ssl -r --verbosity:0 main.nim
+var client = newHttpClient(sslContext=newContext(verifyMode=CVerifyPeer), headers=newHttpHeaders({"X-Auth-Token": "token"}))
+let res = get(client, "https://www.httpbin.org/get")
+echo res.status
+echo res.body
+
