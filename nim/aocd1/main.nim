@@ -1,27 +1,30 @@
 import std/strutils
+from std/sequtils import map
 
+# Run with: nim c -r --verbosity:0 main.nim
+
+# Read from file and strip last \n char (returns a string)
 let file = readFile("input.txt").strip()
-var rows = file.splitLines()
+# Split the string and convert each line to an int with pasrseInt 
+var rows = file.splitLines().map(parseInt)
 
 proc solve_one(): int = 
   for row in rows:
     for cmp in rows[1 .. ^1]:
-      let irow = parseInt(row) 
-      let icmp = parseInt(cmp)
-      let sum = irow + icmp
+      let sum = row + cmp
       if (sum == 2020):
-        return irow * icmp
+        return row * cmp
+
 
 proc solve_two(): int =
   for row in rows:
     for cmp in rows[1 .. ^1]:
       for cmp2 in rows[2 .. ^1]:
-        let irow = parseInt(row) 
-        let icmp = parseInt(cmp)
-        let icmp2 = parseInt(cmp2)
-        let sum = irow + icmp + icmp2
+        let sum = row + cmp + cmp2
         if (sum == 2020):
-          return irow * icmp * icmp2
+          return row * cmp * cmp2
+
 
 echo solve_one()
 echo solve_two()
+
