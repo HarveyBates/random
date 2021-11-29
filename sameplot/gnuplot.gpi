@@ -1,0 +1,31 @@
+# To run: gnuplot -p gnuplot.gpi
+
+# Set the title
+set title "Same Plot"
+
+# Set font and size
+set title font "Helvetica, 16"
+set tics font "Helvetica, 14"
+set xlabel font "Helvetica, 14"
+set ylabel font "Helvetica, 14"
+
+# Set the size of the plot to have the ratio 1:1 x:y
+set size 1, 1
+
+# Disable ticks on opposite side of plot
+set xtics nomirror
+set ytics nomirror
+
+# Use background grid
+set grid
+
+# Set axis label
+set ylabel "y"
+set xlabel "x"
+
+# Plot data, using columns 1:2, with points, linstyle 2, linewidth 2 and the title 
+plot 'data.txt' using 1:2 with linespoints linestyle 2 linewidth 2 title 'Series 1'
+
+# Not nessessary but shows the plot for two seconds before closing
+# Useful for debugging
+pause 2

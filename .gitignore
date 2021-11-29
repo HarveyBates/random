@@ -8,6 +8,7 @@
 CppProperties.json
 *.swp
 *.*.swp
+__pycache__
 
 # Prerequisites
 *.d
