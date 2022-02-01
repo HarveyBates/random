@@ -9,6 +9,9 @@ CppProperties.json
 *.swp
 *.*.swp
 __pycache__
+*.lock
+dist
+target
 
 # Prerequisites
 *.d
