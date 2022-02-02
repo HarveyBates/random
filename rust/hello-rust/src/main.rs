@@ -13,18 +13,19 @@ struct App {
     counter: i64,
 }
 
+
 impl Component for App {
     type Message = Msg;
     type Properties = ();
 
-    fn create(context: &Context<Self>) -> Self {
+    fn create(_context: &Context<Self>) -> Self {
         Self {
             counter: 0
         }
     }
 
-    fn update(&mut self, context: &Context<Self>, msg: Self::Message) -> bool {
-        //console::log!("Update");
+    fn update(&mut self, _context: &Context<Self>, msg: Self::Message) -> bool {
+        console::log!("Update");
         match msg {
             Msg::AddOne => {
                 self.counter += 1;
@@ -37,11 +38,11 @@ impl Component for App {
         }
     }
 
-    fn view(&self, context: &Context<Self>) -> Html {
+    fn view(&self, _context: &Context<Self>) -> Html {
         html! {
             <div>
-                <button onclick={context.link().callback(|_| Msg::AddOne)}> {"+1"}</button>
-                <button onclick={context.link().callback(|_| Msg::SubOne)}> {"-1"}</button>
+                <button onclick={_context.link().callback(|_| Msg::AddOne)}> {"+1"}</button>
+                <button onclick={_context.link().callback(|_| Msg::SubOne)}> {"-1"}</button>
                 <p>{self.counter}</p>
                 <p>
                     {"Rendered at: "}
