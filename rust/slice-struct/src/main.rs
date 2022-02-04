@@ -29,6 +29,49 @@ fn second_word(s: &str) -> &str {
 }
 
 
+struct User {
+    active: bool,
+    username: String, 
+    email: String,
+    sign_in_count: u64,
+}
+
+
+fn build_user(email: String, username: String) -> User {
+    User {
+        email, 
+        username, 
+        active: true,
+        sign_in_count: 1,
+    }
+}
+
+#[derive(Debug)] // Enables the use of {:?}
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+// One way of doing this
+fn area(rec: &Rectangle) -> u32 {
+    rec.width * rec.height
+}
+
+// Proper way
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            height: size,
+        }
+    }
+}
+
+
 fn main() {
     let mut s = String::from("Hello World!");
     let word = first_word(&s);
@@ -45,9 +88,26 @@ fn main() {
     let _world = &hw[6..len]; // or [6..11]
 
 
+    let mut user: User = build_user("hbates@hotmail.com".to_string(), "Hello".to_string());
 
+    println!("Email: {}", user.email);
 
+    // Update user syntax
+    user = User {
+        email: String::from("newEmail@hotmail.com"),
+        ..user // Use rest of values from existing user
+    };
 
+    println!("Email: {}", user.email);
 
+    let rec = Rectangle {
+        width: 30,
+        height: 50,
+    };
 
+    dbg!(&rec); // Cool debug output with line number and filename
+
+    println!("Area = {}", area(&rec)); // One method
+
+    println!("Area = {}", rec.area()); // Correct method
 }
