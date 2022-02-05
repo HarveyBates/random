@@ -22,10 +22,10 @@ impl Message {
 }
 
 // Null equivlent in rust
-enum Option<T>{
-    None, 
-    Some(T),
-}
+//enum Option<T>{
+//    None, 
+//    Some(T),
+//}
 
 #[derive(Debug)]
 enum Country {
@@ -41,6 +41,7 @@ enum Coin {
     Quarter(Country),
 }
 
+// Demonstrating match functionality
 fn value_in_cents(coin: Coin) -> u8 {
     match coin {
         Coin::Penny => {
@@ -53,6 +54,15 @@ fn value_in_cents(coin: Coin) -> u8 {
             println!("A coin from {:?}!", country);
             25
         },
+    }
+}
+
+
+// Matching with Option<T>
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i+1),
     }
 }
 
@@ -73,6 +83,18 @@ fn main() {
     let coin = Coin::Quarter(Country::Australia);
     let val = value_in_cents(coin);
     println!("Value = {}", val);
+
+    // Option<T> sum
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+
+    // if let control flow (similar to match but for smaller cases)
+    // Useful for handlng one case and ignoring others
+    let config_max = Some(3u8);
+    if let Some(max) = config_max {
+        println!("The maximum is configured to be {}", max);
+    }
 
 
 
